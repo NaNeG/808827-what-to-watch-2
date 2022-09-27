@@ -1,5 +1,13 @@
+import Main from '../../pages/main/main';
+
 function App(): JSX.Element {
-  return <p>Hello, world!</p>;
+  return (
+    <Main
+      previewMovieTitle="The Grand Budapest Hotel"
+      previewMovieGenre="Drama"
+      previewMovieCreatedDate={2014}
+    />
+  );
 }
 
 export default App;

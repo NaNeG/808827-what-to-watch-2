@@ -1,11 +1,11 @@
-import Main from '../../pages/Main/Mainq';
+import Main from '../../pages/Main/Main';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import SignIn from '../../pages/SignIn/SignInq';
-import MyList from '../../pages/MyList/MyListq';
-import Film from '../../pages/Film/Filmq';
-import AddReview from '../../pages/AddReview/AddReviewq';
-import VideoPlayer from '../../pages/VideoPlayer/VideoPlayerq.tsx';
-import { NotFound } from '../../pages/NotFound/NotFoundq';
+import SignIn from '../../pages/SignIn/SignIn';
+import MyList from '../../pages/MyList/MyList';
+import Film from '../../pages/Film/Film';
+import AddReview from '../../pages/AddReview/AddReview';
+import VideoPlayer from '../../pages/VideoPlayer/VideoPlayer.tsx';
+import { NotFound } from '../../pages/NotFound/NotFound';
 import AuthStatus from '../../types/AuthStatus.enum';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 

@@ -1,8 +1,8 @@
-import Main from '../../pages/main/main1';
+import Main from '../../pages/main/main';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SignIn from '../../pages/sign-in/sign-in';
 import MyList from '../../pages/my-list/my-list';
-import Film from '../../pages/film/film1';
+import Film from '../../pages/film/film';
 import AddReview from '../../pages/add-review/add-review';
 import VideoPlayer from '../../pages/video-player/video-player';
 import { NotFound } from '../../pages/not-found/not-found';

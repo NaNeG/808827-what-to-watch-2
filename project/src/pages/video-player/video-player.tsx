@@ -1,16 +1,23 @@
-export default function VideoPlayer() {
+import { Link } from 'react-router-dom';
+import { FilmType } from '../../types/film.type';
+
+type VideoPlayerProps = {
+  mockFilms: FilmType[];
+}
+
+export default function VideoPlayer(props: VideoPlayerProps) {
   return (
     <div className="player">
       <video
-        src="#"
+        src={props.mockFilms[0].videoLink}
         className="player__video"
-        poster="img/player-poster.jpg"
+        poster={props.mockFilms[0].posterImage}
       >
       </video>
 
-      <button type="button" className="player__exit">
+      <Link to={'/films/123'} type="button" className="player__exit">
           Exit
-      </button>
+      </Link>
 
       <div className="player__controls">
         <div className="player__controls-row">

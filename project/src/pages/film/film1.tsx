@@ -1,14 +1,21 @@
 import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import FilmList from '../../components/film-list/film-list';
+import { FilmType } from '../../types/film.type';
 
-export default function Film() {
+type FilmProps = {
+  mockFilms: FilmType[];
+}
+
+export default function Film(props: FilmProps) {
   return (
     <Fragment>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img
-              src="img/bg-the-grand-budapest-hotel.jpg"
-              alt="The Grand Budapest Hotel"
+              src={props.mockFilms[0].backgroundImage}
+              alt={props.mockFilms[0].name}
             />
           </div>
 
@@ -16,11 +23,11 @@ export default function Film() {
 
           <header className="page-header film-card__head">
             <div className="logo">
-              <a href="main.html" className="logo__link">
+              <Link to={'/'} className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
 
             <ul className="user-block">
@@ -42,14 +49,15 @@ export default function Film() {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="film-card__title">{props.mockFilms[0].name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">Drama</span>
-                <span className="film-card__year">2014</span>
+                <span className="film-card__genre">{props.mockFilms[0].genre}</span>
+                <span className="film-card__year">{props.mockFilms[0].released}</span>
               </p>
 
               <div className="film-card__buttons">
-                <button
+                <Link
+                  to={'/player/123'}
                   className="btn btn--play film-card__button"
                   type="button"
                 >
@@ -57,8 +65,8 @@ export default function Film() {
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
-                <button
+                </Link>
+                <Link to={'/mylist'}
                   className="btn btn--list film-card__button"
                   type="button"
                 >
@@ -67,10 +75,10 @@ export default function Film() {
                   </svg>
                   <span>My list</span>
                   <span className="film-card__count">9</span>
-                </button>
-                <a href="add-review.html" className="btn film-card__button">
+                </Link>
+                <Link to={'/films/123/review'} className="btn film-card__button">
                   Add review
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -80,8 +88,8 @@ export default function Film() {
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt="The Grand Budapest Hotel poster"
+                src={props.mockFilms[0].posterImage}
+                alt={`${props.mockFilms[0].name } poster`}
                 width="218"
                 height="327"
               />
@@ -118,28 +126,16 @@ export default function Film() {
 
               <div className="film-card__text">
                 <p>
-                  In the 1930s, the Grand Budapest Hotel is a popular European
-                  ski resort, presided over by concierge Gustave H. (Ralph
-                  Fiennes). Zero, a junior lobby boy, becomes Gustave&apos;s friend
-                  and protege.
-                </p>
-
-                <p>
-                  Gustave prides himself on providing first-className service to
-                  the hotel&apos;s guests, including satisfying the sexual needs of
-                  the many elderly women who stay there. When one of Gustave&apos;s
-                  lovers dies mysteriously, Gustave finds himself the recipient
-                  of a priceless painting and the chief suspect in her murder.
+                  {props.mockFilms[0].description}
                 </p>
 
                 <p className="film-card__director">
-                  <strong>Director: Wes Anderson</strong>
+                  <strong>Director: {props.mockFilms[0].director}</strong>
                 </p>
 
                 <p className="film-card__starring">
                   <strong>
-                    Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe
-                    and other
+                    Starring: {props.mockFilms[0].starring.join(', ')} and others
                   </strong>
                 </p>
               </div>
@@ -153,7 +149,8 @@ export default function Film() {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
+            <FilmList films={props.mockFilms}></FilmList>
+            {/* <article className="small-film-card catalog__films-card">
               <div className="small-film-card__image">
                 <img
                   src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
@@ -215,7 +212,7 @@ export default function Film() {
                   Aviator
                 </a>
               </h3>
-            </article>
+            </article> */}
           </div>
         </section>
 

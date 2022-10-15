@@ -1,5 +1,5 @@
 import {Navigate} from 'react-router-dom';
-import AuthStatus from '../../types/AuthStatus.enum';
+import AuthStatus from '../../types/auth-status.enum';
 
 type PrivateRouteProps = {
   authStatus: AuthStatus,

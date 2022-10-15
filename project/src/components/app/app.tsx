@@ -1,15 +1,20 @@
-import Main from '../../pages/Main/Main';
+import Main from '../../pages/main/main1';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import SignIn from '../../pages/SignIn/SignIn';
-import MyList from '../../pages/MyList/MyList';
-import Film from '../../pages/Film/Film';
-import AddReview from '../../pages/AddReview/AddReview';
-import VideoPlayer from '../../pages/VideoPlayer/VideoPlayer.tsx';
-import { NotFound } from '../../pages/NotFound/NotFound';
-import AuthStatus from '../../types/AuthStatus.enum';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import SignIn from '../../pages/sign-in/sign-in';
+import MyList from '../../pages/my-list/my-list';
+import Film from '../../pages/film/film1';
+import AddReview from '../../pages/add-review/add-review';
+import VideoPlayer from '../../pages/video-player/video-player';
+import { NotFound } from '../../pages/not-found/not-found';
+import AuthStatus from '../../types/auth-status.enum';
+import PrivateRoute from '../private-route/private-route';
+import { FilmType } from '../../types/film.type';
 
-function App(): JSX.Element {
+type AppProps = {
+  mockFilms: FilmType[]
+}
+
+function App(props: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -20,6 +25,7 @@ function App(): JSX.Element {
               previewMovieTitle="The Grand Budapest Hotel"
               previewMovieGenre="Drama"
               previewMovieCreatedDate={2014}
+              mockFilms={props.mockFilms}
             />
           }
         >
@@ -28,18 +34,18 @@ function App(): JSX.Element {
         <Route
           path="/mylist"
           element={
-            <PrivateRoute authStatus={AuthStatus.NoAuth}>
-              <MyList />
+            <PrivateRoute authStatus={AuthStatus.Authorized}>
+              <MyList mockFilms={props.mockFilms}/>
             </PrivateRoute>
           }
         >
         </Route>
         <Route path="/films/:id">
-          <Route index element={<Film></Film>}></Route>
-          <Route path="review" element={<AddReview></AddReview>}></Route>
+          <Route index element={<Film mockFilms={props.mockFilms}></Film>}></Route>
+          <Route path="review" element={<AddReview mockFilm={props.mockFilms[0]}></AddReview>}></Route>
         </Route>
 
-        <Route path="/player/:id" element={<VideoPlayer></VideoPlayer>}></Route>
+        <Route path="/player/:id" element={<VideoPlayer mockFilms={props.mockFilms}></VideoPlayer>}></Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
     </BrowserRouter>

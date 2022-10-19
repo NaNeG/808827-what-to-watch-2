@@ -1,10 +1,9 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import FilmList from '../../components/film-list/film-list';
 import { FilmType } from '../../types/film.type';
 
 type FilmProps = {
-  mockFilms: FilmType[];
+  film: FilmType;
 }
 
 export default function Film(props: FilmProps) {
@@ -14,8 +13,8 @@ export default function Film(props: FilmProps) {
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img
-              src={props.mockFilms[0].backgroundImage}
-              alt={props.mockFilms[0].name}
+              src={props.film.backgroundImage}
+              alt={props.film.name}
             />
           </div>
 
@@ -49,17 +48,16 @@ export default function Film(props: FilmProps) {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{props.mockFilms[0].name}</h2>
+              <h2 className="film-card__title">{props.film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{props.mockFilms[0].genre}</span>
-                <span className="film-card__year">{props.mockFilms[0].released}</span>
+                <span className="film-card__genre">{props.film.genre}</span>
+                <span className="film-card__year">{props.film.released}</span>
               </p>
 
               <div className="film-card__buttons">
                 <Link
-                  to={'/player/123'}
+                  to={`/player/${props.film.id}`}
                   className="btn btn--play film-card__button"
-                  type="button"
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -76,7 +74,7 @@ export default function Film(props: FilmProps) {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </Link>
-                <Link to={'/films/123/review'} className="btn film-card__button">
+                <Link to={`/films/${props.film.id}/review`} className="btn film-card__button">
                   Add review
                 </Link>
               </div>
@@ -88,8 +86,8 @@ export default function Film(props: FilmProps) {
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
               <img
-                src={props.mockFilms[0].posterImage}
-                alt={`${props.mockFilms[0].name } poster`}
+                src={props.film.posterImage}
+                alt={`${props.film.name } poster`}
                 width="218"
                 height="327"
               />
@@ -126,16 +124,16 @@ export default function Film(props: FilmProps) {
 
               <div className="film-card__text">
                 <p>
-                  {props.mockFilms[0].description}
+                  {props.film.description}
                 </p>
 
                 <p className="film-card__director">
-                  <strong>Director: {props.mockFilms[0].director}</strong>
+                  <strong>Director: {props.film.director}</strong>
                 </p>
 
                 <p className="film-card__starring">
                   <strong>
-                    Starring: {props.mockFilms[0].starring.join(', ')} and others
+                    Starring: {props.film.starring.join(', ')} and others
                   </strong>
                 </p>
               </div>
@@ -149,7 +147,7 @@ export default function Film(props: FilmProps) {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            <FilmList films={props.mockFilms}></FilmList>
+            {/* <FilmList films={props.mockFilms}></FilmList> */}
             {/* <article className="small-film-card catalog__films-card">
               <div className="small-film-card__image">
                 <img

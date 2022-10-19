@@ -71,7 +71,7 @@ export default function AddReview(props: AddReviewProps) {
         <form action="#" className="add-review__form">
 
 
-          <ReviewForm></ReviewForm>
+          <ReviewForm/>
         </form>
       </div>
     </section>

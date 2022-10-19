@@ -23,9 +23,9 @@ export default function FilmList(props: FilmListProps) {
           posterAlt={film.name}
           name={film.name}
           isHighlighted={highlightedFilm === film.id}
+          videoLink={film.videoLink}
           onFilmCardHover={mouseHoverHandler}
-        >
-        </FilmCard>
+        />
       ))}
     </Fragment>
   );

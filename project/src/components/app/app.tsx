@@ -9,9 +9,11 @@ import { NotFound } from '../../pages/not-found/not-found';
 import AuthStatus from '../../types/auth-status.enum';
 import PrivateRoute from '../private-route/private-route';
 import { FilmType } from '../../types/film.type';
+import { ReviewType } from '../../types/review.type';
 
 type AppProps = {
-  mockFilms: FilmType[]
+  mockFilms: FilmType[];
+  reviews: ReviewType[];
 }
 
 function App(props: AppProps): JSX.Element {
@@ -41,7 +43,7 @@ function App(props: AppProps): JSX.Element {
         >
         </Route>
         <Route path="/films/:id">
-          <Route index element={<Film film={props.mockFilms[0]}></Film>}></Route>
+          <Route index element={<Film films={props.mockFilms} film={props.mockFilms[0]} reviews={props.reviews}></Film>}></Route>
           <Route path="review" element={<AddReview mockFilm={props.mockFilms[0]}></AddReview>}></Route>
         </Route>
 

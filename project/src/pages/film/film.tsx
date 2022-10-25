@@ -1,9 +1,14 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import SimilarFilms from '../../components/similar-films/similar-films';
+import Tabs from '../../components/tabs/tabs';
 import { FilmType } from '../../types/film.type';
+import { ReviewType } from '../../types/review.type';
 
 type FilmProps = {
+  films: FilmType[];
   film: FilmType;
+  reviews: ReviewType[];
 }
 
 export default function Film(props: FilmProps) {
@@ -92,8 +97,8 @@ export default function Film(props: FilmProps) {
                 height="327"
               />
             </div>
-
-            <div className="film-card__desc">
+            <Tabs film={props.film} reviews={props.reviews}/>
+            {/* <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
                   <li className="film-nav__item film-nav__item--active">
@@ -137,7 +142,7 @@ export default function Film(props: FilmProps) {
                   </strong>
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
@@ -147,7 +152,7 @@ export default function Film(props: FilmProps) {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__films-list">
-            {/* <FilmList films={props.mockFilms}></FilmList> */}
+            <SimilarFilms films={props.films} currentFilm={props.film}/>
             {/* <article className="small-film-card catalog__films-card">
               <div className="small-film-card__image">
                 <img

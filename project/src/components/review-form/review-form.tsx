@@ -1,7 +1,7 @@
 import { ChangeEvent, Fragment, useState } from 'react';
 
 export default function ReviewForm() {
-  const [_starRating, setStarRating] = useState('10');
+  const [/*starRating*/, setStarRating] = useState('10');
   const [reviewContent, setReviewContent] = useState('');
 
   const reviewTextChangeHandler = (evt: ChangeEvent<HTMLTextAreaElement>) => {

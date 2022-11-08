@@ -1,4 +1,6 @@
 import { Fragment, useState } from 'react';
+import getFilmsByGenre from '../../helpers/get-films-by-genre';
+import { useAppSelector } from '../../hooks';
 import { FilmType } from '../../types/film.type';
 import FilmCard from '../film-card/film-card';
 
@@ -8,6 +10,7 @@ type FilmListProps = {
 
 export default function FilmList(props: FilmListProps) {
   const [highlightedFilm, setHighlightedFilm] = useState(NaN);
+  const currentGenre = useAppSelector((state) => state.currentGenre);
 
   const mouseHoverHandler = (id: number) => {
     setHighlightedFilm(id);
@@ -15,7 +18,7 @@ export default function FilmList(props: FilmListProps) {
 
   return (
     <Fragment>
-      {props.films.map((film) => (
+      {getFilmsByGenre(props.films, currentGenre).map((film) => (
         <FilmCard
           key={film.id}
           id={film.id}

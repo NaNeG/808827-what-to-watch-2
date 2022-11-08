@@ -1,12 +1,8 @@
 import { Link } from 'react-router-dom';
 import FilmList from '../../components/film-list/film-list';
-import { FilmType } from '../../types/film.type';
 
-type MyListProps = {
-  mockFilms: FilmType[];
-}
 
-export default function MyList(props: MyListProps) {
+export default function MyList() {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -19,7 +15,7 @@ export default function MyList(props: MyListProps) {
         </div>
 
         <h1 className="page-title user-page__title">
-            My list <span className="user-page__film-count">9</span>
+          My list <span className="user-page__film-count">9</span>
         </h1>
         <ul className="user-block">
           <li className="user-block__item">
@@ -33,7 +29,9 @@ export default function MyList(props: MyListProps) {
             </div>
           </li>
           <li className="user-block__item">
-            <a className="user-block__link" href="/">Sign out</a>
+            <a className="user-block__link" href="/">
+              Sign out
+            </a>
           </li>
         </ul>
       </header>
@@ -41,10 +39,7 @@ export default function MyList(props: MyListProps) {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <div className="catalog__films-list">
-          <FilmList films={props.mockFilms}></FilmList>
-        </div>
-
+        <FilmList />
       </section>
 
       <footer className="page-footer">

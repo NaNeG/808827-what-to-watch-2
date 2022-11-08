@@ -32,7 +32,6 @@ function App(props: AppProps): JSX.Element {
               previewMovieTitle="The Grand Budapest Hotel"
               previewMovieGenre="Drama"
               previewMovieCreatedDate={2014}
-              mockFilms={props.mockFilms}
             />
           }
         >

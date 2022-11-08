@@ -6,7 +6,6 @@ import { FilmType } from '../../types/film.type';
 import { ReviewType } from '../../types/review.type';
 
 type FilmProps = {
-  films: FilmType[];
   film: FilmType;
   reviews: ReviewType[];
 }
@@ -150,10 +149,10 @@ export default function Film(props: FilmProps) {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
+          <SimilarFilms currentFilm={props.film}/>
+          {/* <div className="catalog__films-list">
 
-          <div className="catalog__films-list">
-            <SimilarFilms films={props.films} currentFilm={props.film}/>
-            {/* <article className="small-film-card catalog__films-card">
+            <article className="small-film-card catalog__films-card">
               <div className="small-film-card__image">
                 <img
                   src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
@@ -215,8 +214,8 @@ export default function Film(props: FilmProps) {
                   Aviator
                 </a>
               </h3>
-            </article> */}
-          </div>
+            </article>
+          </div> */}
         </section>
 
         <footer className="page-footer">

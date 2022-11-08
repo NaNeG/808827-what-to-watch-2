@@ -1,16 +1,12 @@
 import { Fragment, useState } from 'react';
-import getFilmsByGenre from '../../helpers/get-films-by-genre';
 import { useAppSelector } from '../../hooks';
-import { FilmType } from '../../types/film.type';
 import FilmCard from '../film-card/film-card';
+import ShowMoreButton from '../show-more-button/show-more-button';
 
-type FilmListProps = {
-  films: FilmType[];
-};
-
-export default function FilmList(props: FilmListProps) {
+export default function FilmList() {
   const [highlightedFilm, setHighlightedFilm] = useState(NaN);
-  const currentGenre = useAppSelector((state) => state.currentGenre);
+  const filteredFilms = useAppSelector((state) => state.filteredFilms);
+  const shownCount = useAppSelector((state) => state.shownCount);
 
   const mouseHoverHandler = (id: number) => {
     setHighlightedFilm(id);
@@ -18,18 +14,23 @@ export default function FilmList(props: FilmListProps) {
 
   return (
     <Fragment>
-      {getFilmsByGenre(props.films, currentGenre).map((film) => (
-        <FilmCard
-          key={film.id}
-          id={film.id}
-          posterSrc={film.posterImage}
-          posterAlt={film.name}
-          name={film.name}
-          isHighlighted={highlightedFilm === film.id}
-          videoLink={film.videoLink}
-          onFilmCardHover={mouseHoverHandler}
-        />
-      ))}
+      <div className="catalog__films-list">
+        {filteredFilms.slice(0, shownCount).map((film) => (
+          <FilmCard
+            key={film.id}
+            id={film.id}
+            posterSrc={film.posterImage}
+            posterAlt={film.name}
+            name={film.name}
+            isHighlighted={highlightedFilm === film.id}
+            videoLink={film.videoLink}
+            onFilmCardHover={mouseHoverHandler}
+          />
+        ))}
+      </div>
+      <div className="catalog__more">
+        {shownCount < filteredFilms.length && <ShowMoreButton />}
+      </div>
     </Fragment>
   );
 }

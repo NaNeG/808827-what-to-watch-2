@@ -196,4 +196,52 @@ export const films: FilmType[] = [
     previewVideoLink:
       'https://10.react.pages.academy/static/film/video/traffic.mp4',
   },
+  {
+    name: 'Pulp Fiction',
+    posterImage:
+      'https://10.react.pages.academy/static/film/poster/Pulp_Fiction.jpg',
+    previewImage:
+      'https://10.react.pages.academy/static/film/preview/pulp-fiction.jpg',
+    backgroundImage:
+      'https://10.react.pages.academy/static/film/background/Pulp_Fiction.jpg',
+    backgroundColor: '#795433',
+    description:
+      'The lives of two mob hitmen, a boxer, a gangster & his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
+    rating: 1.5,
+    scoresCount: 1635992,
+    director: 'Quentin Tarantino',
+    starring: ['John Travolta', 'Uma Thurman', 'Samuel L. Jackson'],
+    runTime: 153,
+    genre: 'Crime',
+    released: 1994,
+    id: 15,
+    isFavorite: false,
+    videoLink: 'https://10.react.pages.academy/static/film/video/matrix.mp4',
+    previewVideoLink:
+      'https://10.react.pages.academy/static/film/video/traffic.mp4',
+  },
+  {
+    name: 'Pulp Fiction',
+    posterImage:
+      'https://10.react.pages.academy/static/film/poster/Pulp_Fiction.jpg',
+    previewImage:
+      'https://10.react.pages.academy/static/film/preview/pulp-fiction.jpg',
+    backgroundImage:
+      'https://10.react.pages.academy/static/film/background/Pulp_Fiction.jpg',
+    backgroundColor: '#795433',
+    description:
+      'The lives of two mob hitmen, a boxer, a gangster & his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
+    rating: 1.5,
+    scoresCount: 1635992,
+    director: 'Quentin Tarantino',
+    starring: ['John Travolta', 'Uma Thurman', 'Samuel L. Jackson'],
+    runTime: 153,
+    genre: 'Crime',
+    released: 1994,
+    id: 16,
+    isFavorite: false,
+    videoLink: 'https://10.react.pages.academy/static/film/video/matrix.mp4',
+    previewVideoLink:
+      'https://10.react.pages.academy/static/film/video/traffic.mp4',
+  },
 ];

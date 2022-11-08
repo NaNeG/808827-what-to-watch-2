@@ -10,6 +10,9 @@ import AuthStatus from '../../types/auth-status.enum';
 import PrivateRoute from '../private-route/private-route';
 import { FilmType } from '../../types/film.type';
 import { ReviewType } from '../../types/review.type';
+import { useAppDispatch } from '../../hooks';
+import { fillFilms } from '../../store/action';
+import { useDispatch } from 'react-redux';
 
 type AppProps = {
   mockFilms: FilmType[];
@@ -17,6 +20,9 @@ type AppProps = {
 }
 
 function App(props: AppProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  dispatch(fillFilms(props.mockFilms));
+
   return (
     <BrowserRouter>
       <Routes>

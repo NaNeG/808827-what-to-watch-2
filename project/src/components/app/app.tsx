@@ -12,7 +12,6 @@ import { FilmType } from '../../types/film.type';
 import { ReviewType } from '../../types/review.type';
 import { useAppDispatch } from '../../hooks';
 import { fillFilms } from '../../store/action';
-import { useDispatch } from 'react-redux';
 
 type AppProps = {
   mockFilms: FilmType[];

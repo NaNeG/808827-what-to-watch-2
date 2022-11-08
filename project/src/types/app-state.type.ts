@@ -1,5 +1,5 @@
-import { store } from "../store";
-import { FilmType } from "./film.type"
+import { store } from '../store';
+import { FilmType } from './film.type';
 
 export type AppState = {
   films: FilmType[],

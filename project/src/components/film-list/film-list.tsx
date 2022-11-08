@@ -1,8 +1,6 @@
 import { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
 import getFilmsByGenre from '../../helpers/get-films-by-genre';
 import { useAppSelector } from '../../hooks';
-import { store } from '../../store';
 import { FilmType } from '../../types/film.type';
 import FilmCard from '../film-card/film-card';
 

@@ -4,7 +4,7 @@ import Videoplayer from '../videoplayer/videoplayer';
 type FilmCardProps = {
   id: number;
   posterSrc: string;
-  posterAlt: string;
+  posterAlt?: string;
   name: string;
   isHighlighted: boolean;
   videoLink: string;

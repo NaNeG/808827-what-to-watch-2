@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react';
 import { getGenres } from '../../helpers/get-genres';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeGenre } from '../../store/action';
+import { changeGenre, resetShownFilms } from '../../store/action';
 
 export default function GenreFilter() {
   const currentGenre = useAppSelector((state) => state.currentGenre);
@@ -15,6 +15,7 @@ export default function GenreFilter() {
   ) => {
     event.preventDefault();
     dispatch(changeGenre({ currentGenre: genre }));
+    dispatch(resetShownFilms());
   };
 
   return (

@@ -2,13 +2,11 @@ import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import FilmList from '../../components/film-list/film-list';
 import GenreFilter from '../../components/genre-filter/genre-filter';
-import { FilmType } from '../../types/film.type';
 
 type MainProps = {
   previewMovieTitle: string;
   previewMovieGenre: string;
   previewMovieCreatedDate: number;
-  mockFilms: FilmType[];
 };
 
 export default function Main(props: MainProps) {
@@ -107,7 +105,7 @@ export default function Main(props: MainProps) {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreFilter/>
+          <GenreFilter />
 
           {/* <ul className="catalog__genres-list">
             <li className="catalog__genres-item catalog__genres-item--active">
@@ -162,15 +160,7 @@ export default function Main(props: MainProps) {
             </li>
           </ul> */}
 
-          <div className="catalog__films-list">
-            <FilmList films={props.mockFilms}></FilmList>
-          </div>
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
-          </div>
+          <FilmList/>
         </section>
 
         <footer className="page-footer">

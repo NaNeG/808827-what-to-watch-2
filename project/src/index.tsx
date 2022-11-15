@@ -5,10 +5,13 @@ import App from './components/app/app';
 import { films } from './mocks/films';
 import reviews from './mocks/reviews';
 import { store } from './store';
+import { fetchFilms } from './store/action';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+store.dispatch(fetchFilms());
 
 root.render(
   <React.StrictMode>

@@ -2,13 +2,14 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DEFAULT_GENRE } from '../const';
 import getFilmsByGenre from '../helpers/get-films-by-genre';
 import { AppState } from '../types/app-state.type';
-import { changeGenre, fillFilms, resetShownFilms, showMoreFilms } from './action';
+import { changeGenre, fillFilms, resetShownFilms, setDataIsLoading, showMoreFilms } from './action';
 
 const initialState: AppState = {
   films: [],
   filteredFilms: [],
   currentGenre: DEFAULT_GENRE,
   shownCount: 0,
+  dataIsLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -27,7 +28,10 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetShownFilms, (state) => {
       state.shownCount = state.filteredFilms.length > 8 ? 8 : state.filteredFilms.length;
-    });
+    })
+    .addCase(setDataIsLoading, (state, action) => {
+      state.dataIsLoading = action.payload;
+    })
 });
 
 export { reducer };

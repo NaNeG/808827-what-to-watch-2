@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const BASE_URL = 'https://10.react.pages.academy/wtw';
 const TIMEOUT = 5000;
@@ -9,4 +9,4 @@ export const createApi = () => {
     timeout: TIMEOUT,
   });
   return api;
-}
+};

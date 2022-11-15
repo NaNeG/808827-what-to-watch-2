@@ -31,7 +31,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setDataIsLoading, (state, action) => {
       state.dataIsLoading = action.payload;
-    })
+    });
 });
 
 export { reducer };

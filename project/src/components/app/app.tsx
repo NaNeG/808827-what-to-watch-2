@@ -10,8 +10,7 @@ import AuthStatus from '../../types/auth-status.enum';
 import PrivateRoute from '../private-route/private-route';
 import { FilmType } from '../../types/film.type';
 import { ReviewType } from '../../types/review.type';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchFilms, fillFilms } from '../../store/action';
+import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 type AppProps = {
@@ -20,7 +19,7 @@ type AppProps = {
 }
 
 function App(props: AppProps): JSX.Element {
-  const isLoading = useAppSelector(state => state.dataIsLoading);
+  const isLoading = useAppSelector((state) => state.dataIsLoading);
 
   if (isLoading) {
     return (

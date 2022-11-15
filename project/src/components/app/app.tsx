@@ -10,8 +10,9 @@ import AuthStatus from '../../types/auth-status.enum';
 import PrivateRoute from '../private-route/private-route';
 import { FilmType } from '../../types/film.type';
 import { ReviewType } from '../../types/review.type';
-import { useAppDispatch } from '../../hooks';
-import { fillFilms } from '../../store/action';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFilms, fillFilms } from '../../store/action';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 type AppProps = {
   mockFilms: FilmType[];
@@ -19,8 +20,13 @@ type AppProps = {
 }
 
 function App(props: AppProps): JSX.Element {
-  const dispatch = useAppDispatch();
-  dispatch(fillFilms(props.mockFilms));
+  const isLoading = useAppSelector(state => state.dataIsLoading);
+
+  if (isLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <BrowserRouter>
@@ -41,13 +47,13 @@ function App(props: AppProps): JSX.Element {
           path="/mylist"
           element={
             <PrivateRoute authStatus={AuthStatus.Authorized}>
-              <MyList mockFilms={props.mockFilms}/>
+              <MyList />
             </PrivateRoute>
           }
         >
         </Route>
         <Route path="/films/:id">
-          <Route index element={<Film films={props.mockFilms} film={props.mockFilms[0]} reviews={props.reviews}></Film>}></Route>
+          <Route index element={<Film film={props.mockFilms[0]} reviews={props.reviews}></Film>}></Route>
           <Route path="review" element={<AddReview mockFilm={props.mockFilms[0]}></AddReview>}></Route>
         </Route>
 

@@ -2,7 +2,8 @@ import { createReducer } from '@reduxjs/toolkit';
 import { DEFAULT_GENRE } from '../const';
 import getFilmsByGenre from '../helpers/get-films-by-genre';
 import { AppState } from '../types/app-state.type';
-import { changeGenre, fillFilms, resetShownFilms, setDataIsLoading, showMoreFilms } from './action';
+import AuthStatus from '../types/auth-status.enum';
+import { changeGenre, fillFilms, setAuthStatus, resetShownFilms, setDataIsLoading, showMoreFilms, setError } from './action';
 
 const initialState: AppState = {
   films: [],
@@ -10,6 +11,8 @@ const initialState: AppState = {
   currentGenre: DEFAULT_GENRE,
   shownCount: 0,
   dataIsLoading: false,
+  authorizationStatus: AuthStatus.NoAuth,
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -32,6 +35,12 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setDataIsLoading, (state, action) => {
       state.dataIsLoading = action.payload;
     })
+    .addCase(setAuthStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
+    });
 });
 
 export { reducer };

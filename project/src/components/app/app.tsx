@@ -6,21 +6,18 @@ import Film from '../../pages/film/film';
 import AddReview from '../../pages/add-review/add-review';
 import VideoPlayer from '../../pages/video-player/video-player';
 import { NotFound } from '../../pages/not-found/not-found';
-import AuthStatus from '../../types/auth-status.enum';
 import PrivateRoute from '../private-route/private-route';
-import { FilmType } from '../../types/film.type';
 import { ReviewType } from '../../types/review.type';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchFilms, fillFilms } from '../../store/action';
+import {useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 type AppProps = {
-  mockFilms: FilmType[];
   reviews: ReviewType[];
 }
 
 function App(props: AppProps): JSX.Element {
-  const isLoading = useAppSelector(state => state.dataIsLoading);
+  const isLoading = useAppSelector((state) => state.dataIsLoading);
+  const films = useAppSelector((state) => state.films);
 
   if (isLoading) {
     return (
@@ -46,18 +43,18 @@ function App(props: AppProps): JSX.Element {
         <Route
           path="/mylist"
           element={
-            <PrivateRoute authStatus={AuthStatus.Authorized}>
+            <PrivateRoute>
               <MyList />
             </PrivateRoute>
           }
         >
         </Route>
         <Route path="/films/:id">
-          <Route index element={<Film film={props.mockFilms[0]} reviews={props.reviews}></Film>}></Route>
-          <Route path="review" element={<AddReview mockFilm={props.mockFilms[0]}></AddReview>}></Route>
+          <Route index element={<Film film={films[0]} reviews={props.reviews}></Film>}></Route>
+          <Route path="review" element={<AddReview mockFilm={films[0]}></AddReview>}></Route>
         </Route>
 
-        <Route path="/player/:id" element={<VideoPlayer mockFilms={props.mockFilms}></VideoPlayer>}></Route>
+        <Route path="/player/:id" element={<VideoPlayer mockFilms={films}></VideoPlayer>}></Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
     </BrowserRouter>

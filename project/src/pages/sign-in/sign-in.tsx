@@ -1,4 +1,33 @@
+import { FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { login } from '../../store/action';
+import { AuthData } from '../../types/auth-data.type';
+
 export default function SignIn() {
+  const [emailField, setEmailField] = useState<string>('');
+  const [passwordField, setPasswordField] = useState<string>('');
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = (authData: AuthData) => {
+    dispatch(login(authData));
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (emailField !== null && passwordField !== null) {
+      onSubmit({
+        email: emailField,
+        password: passwordField,
+      });
+      navigate('/');
+    }
+  };
+
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -14,7 +43,7 @@ export default function SignIn() {
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
@@ -23,6 +52,8 @@ export default function SignIn() {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
+                value={emailField}
+                onChange={(event) => setEmailField(event.target.value)}
               />
               <label
                 className="sign-in__label visually-hidden"
@@ -38,6 +69,8 @@ export default function SignIn() {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
+                value={passwordField}
+                onChange={(event) => setPasswordField(event.target.value)}
               />
               <label
                 className="sign-in__label visually-hidden"

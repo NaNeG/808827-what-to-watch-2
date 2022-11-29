@@ -21,8 +21,8 @@ export default function ReviewForm() {
 
   const reviewSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(postComment({filmId: id, rating: parseInt(starRating), comment: reviewContent}));
-    navigate(`/films/${id}`)
+    dispatch(postComment({filmId: id, rating: parseInt(starRating, 10), comment: reviewContent}));
+    navigate(`/films/${id}`);
   };
 
   return (

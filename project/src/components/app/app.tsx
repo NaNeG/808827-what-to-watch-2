@@ -7,15 +7,10 @@ import AddReview from '../../pages/add-review/add-review';
 import VideoPlayer from '../../pages/video-player/video-player';
 import { NotFound } from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
-import { ReviewType } from '../../types/review.type';
 import {useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
-type AppProps = {
-  reviews: ReviewType[];
-}
-
-function App(props: AppProps): JSX.Element {
+function App(): JSX.Element {
   const isLoading = useAppSelector((state) => state.dataIsLoading);
   const films = useAppSelector((state) => state.films);
 

@@ -1,7 +1,4 @@
 import { useState } from 'react';
-import getFilmsByGenre from '../../helpers/get-films-by-genre';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchSimilarByID } from '../../store/action';
 import { FilmType } from '../../types/film.type';
 import FilmCard from '../film-card/film-card';
 
@@ -20,7 +17,7 @@ export default function SimilarFilms(props: SimilarFilmsProps) {
   return (
     <div className="catalog__films-list">
       {props.films
-      .filter(film => film.id !== props.currentFilm.id)
+        .filter((film) => film.id !== props.currentFilm.id)
         .slice(0, 4)
         .map((film) => (
           <FilmCard

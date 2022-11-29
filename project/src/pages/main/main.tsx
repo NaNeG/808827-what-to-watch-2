@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import FilmList from '../../components/film-list/film-list';
 import GenreFilter from '../../components/genre-filter/genre-filter';
 import UserBlock from '../../components/user-block/user-block';
-import { useAppDispatch } from '../../hooks';
 
 type MainProps = {
   previewMovieTitle: string;
@@ -12,7 +11,6 @@ type MainProps = {
 };
 
 export default function Main(props: MainProps) {
-  const dispatch = useAppDispatch();
   return (
     <Fragment>
       <section className="film-card">
@@ -36,7 +34,7 @@ export default function Main(props: MainProps) {
 
           <UserBlock/>
 
-          
+
         </header>
 
         <div className="film-card__wrap">

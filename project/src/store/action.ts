@@ -144,7 +144,6 @@ export const postComment = createAsyncThunk<
       comment,
       rating,
     });
-    console.log('posted')
     dispatch(setDataIsLoading(false));
   }
 );

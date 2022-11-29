@@ -1,4 +1,9 @@
+import { useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import ReviewForm from '../../components/review-form/review-form';
+import UserBlock from '../../components/user-block/user-block';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFilmByID, setDataIsLoading } from '../../store/action';
 import { FilmType } from '../../types/film.type';
 
 type AddReviewProps = {
@@ -6,6 +11,18 @@ type AddReviewProps = {
 }
 
 export default function AddReview(props: AddReviewProps) {
+  const id = Number(useParams().id);
+
+  const film = useAppSelector((state) => state.film);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setDataIsLoading(true));
+    dispatch(fetchFilmByID(id.toString()));
+    dispatch(setDataIsLoading(false));
+  }, [id, dispatch]);
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
@@ -30,37 +47,23 @@ export default function AddReview(props: AddReviewProps) {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">
-                  {props.mockFilm.name}
-                </a>
+                <Link to={`/films/${id}`} className="breadcrumbs__link">
+                  {film?.name}
+                </Link>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link" href='/'>Add review</a>
+                <Link to={`/films/${id}/review`} className="breadcrumbs__link">Add review</Link>
               </li>
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                  width="63"
-                  height="63"
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link" href='/'>Sign out</a>
-            </li>
-          </ul>
+          <UserBlock/>
         </header>
 
         <div className="film-card__poster film-card__poster--small">
           <img
-            src={props.mockFilm.posterImage}
-            alt={`${props.mockFilm.name } poster`}
+            src={film?.posterImage}
+            alt={`${film?.name } poster`}
             width="218"
             height="327"
           />
@@ -68,11 +71,7 @@ export default function AddReview(props: AddReviewProps) {
       </div>
 
       <div className="add-review">
-        <form action="#" className="add-review__form">
-
-
-          <ReviewForm/>
-        </form>
+        <ReviewForm/>
       </div>
     </section>
   );

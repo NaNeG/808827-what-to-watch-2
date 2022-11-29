@@ -15,7 +15,7 @@ export default function VideoPlayer(props: VideoPlayerProps) {
       >
       </video>
 
-      <Link to={'/films/123'} type="button" className="player__exit">
+      <Link to={'/films/1'} type="button" className="player__exit">
           Exit
       </Link>
 

@@ -1,16 +1,14 @@
 import { useState } from 'react';
-import getFilmsByGenre from '../../helpers/get-films-by-genre';
-import { useAppSelector } from '../../hooks';
 import { FilmType } from '../../types/film.type';
 import FilmCard from '../film-card/film-card';
 
 type SimilarFilmsProps = {
+  films: FilmType[];
   currentFilm: FilmType;
 };
 
 export default function SimilarFilms(props: SimilarFilmsProps) {
   const [highlightedFilm, setHighlightedFilm] = useState(NaN);
-  const films = useAppSelector((state) => state.films);
 
   const mouseHoverHandler = (id: number) => {
     setHighlightedFilm(id);
@@ -18,8 +16,8 @@ export default function SimilarFilms(props: SimilarFilmsProps) {
 
   return (
     <div className="catalog__films-list">
-      {getFilmsByGenre(films, props.currentFilm.genre)
-        .filter((film) => film.name !== props.currentFilm.name)
+      {props.films
+        .filter((film) => film.id !== props.currentFilm.id)
         .slice(0, 4)
         .map((film) => (
           <FilmCard

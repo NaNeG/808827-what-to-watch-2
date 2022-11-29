@@ -1,25 +1,45 @@
-import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Fragment, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import SimilarFilms from '../../components/similar-films/similar-films';
 import Tabs from '../../components/tabs/tabs';
-import { FilmType } from '../../types/film.type';
-import { ReviewType } from '../../types/review.type';
+import UserBlock from '../../components/user-block/user-block';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  fetchReviewsByID,
+  fetchFilmByID,
+  fetchSimilarByID,
+  setDataIsLoading,
+} from '../../store/action';
+import AuthStatus from '../../types/auth-status.enum';
+import { NotFound } from '../not-found/not-found';
 
-type FilmProps = {
-  film: FilmType;
-  reviews: ReviewType[];
-}
+export default function Film() {
+  const id = Number(useParams().id);
 
-export default function Film(props: FilmProps) {
+  const film = useAppSelector((state) => state.film);
+  const reviews = useAppSelector((state) => state.comments);
+  const similar = useAppSelector((state) => state.similar);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setDataIsLoading(true));
+    dispatch(fetchFilmByID(id.toString()));
+    dispatch(fetchSimilarByID(id.toString()));
+    dispatch(fetchReviewsByID(id.toString()));
+    dispatch(setDataIsLoading(false));
+  }, [id, dispatch]);
+
+  if (!film) {
+    return <NotFound />;
+  }
   return (
     <Fragment>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img
-              src={props.film.backgroundImage}
-              alt={props.film.name}
-            />
+            <img src={film.backgroundImage} alt={film.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -33,34 +53,20 @@ export default function Film(props: FilmProps) {
               </Link>
             </div>
 
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img
-                    src="img/avatar.jpg"
-                    alt="User avatar"
-                    width="63"
-                    height="63"
-                  />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a className="user-block__link" href='/'>Sign out</a>
-              </li>
-            </ul>
+            <UserBlock />
           </header>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{props.film.name}</h2>
+              <h2 className="film-card__title">{film.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{props.film.genre}</span>
-                <span className="film-card__year">{props.film.released}</span>
+                <span className="film-card__genre">{film.genre}</span>
+                <span className="film-card__year">{film.released}</span>
               </p>
 
               <div className="film-card__buttons">
                 <Link
-                  to={`/player/${props.film.id}`}
+                  to={`/player/${film.id}`}
                   className="btn btn--play film-card__button"
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -68,7 +74,8 @@ export default function Film(props: FilmProps) {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <Link to={'/mylist'}
+                <Link
+                  to={'/mylist'}
                   className="btn btn--list film-card__button"
                   type="button"
                 >
@@ -78,9 +85,14 @@ export default function Film(props: FilmProps) {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </Link>
-                <Link to={`/films/${props.film.id}/review`} className="btn film-card__button">
-                  Add review
-                </Link>
+                {authStatus === AuthStatus.Authorized && (
+                  <Link
+                    to={`/films/${film.id}/review`}
+                    className="btn film-card__button"
+                  >
+                    Add review
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -90,14 +102,13 @@ export default function Film(props: FilmProps) {
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
               <img
-                src={props.film.posterImage}
-                alt={`${props.film.name } poster`}
+                src={film.posterImage}
+                alt={`${film.name} poster`}
                 width="218"
                 height="327"
               />
             </div>
-            <Tabs film={props.film} reviews={props.reviews}/>
-
+            <Tabs film={film} reviews={reviews} />
           </div>
         </div>
       </section>
@@ -105,8 +116,7 @@ export default function Film(props: FilmProps) {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <SimilarFilms currentFilm={props.film}/>
-
+          <SimilarFilms films={similar} currentFilm={film} />
         </section>
 
         <footer className="page-footer">

@@ -8,12 +8,6 @@ type SimilarFilmsProps = {
 };
 
 export default function SimilarFilms(props: SimilarFilmsProps) {
-  const [highlightedFilm, setHighlightedFilm] = useState(NaN);
-
-  const mouseHoverHandler = (id: number) => {
-    setHighlightedFilm(id);
-  };
-
   return (
     <div className="catalog__films-list">
       {props.films
@@ -26,9 +20,7 @@ export default function SimilarFilms(props: SimilarFilmsProps) {
             posterSrc={film.posterImage}
             posterAlt={film.name}
             name={film.name}
-            isHighlighted={highlightedFilm === film.id}
             videoLink={film.videoLink}
-            onFilmCardHover={mouseHoverHandler}
           />
         ))}
     </div>

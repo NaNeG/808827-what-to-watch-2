@@ -3,21 +3,18 @@ import { Link } from 'react-router-dom';
 import FilmList from '../../components/film-list/film-list';
 import GenreFilter from '../../components/genre-filter/genre-filter';
 import UserBlock from '../../components/user-block/user-block';
+import { ReducerType } from '../../const';
+import { useAppSelector } from '../../hooks';
 
-type MainProps = {
-  previewMovieTitle: string;
-  previewMovieGenre: string;
-  previewMovieCreatedDate: number;
-};
-
-export default function Main(props: MainProps) {
+export default function Main() {
+  const promo = useAppSelector(state => state[ReducerType.Main].promo);
   return (
     <Fragment>
       <section className="film-card">
         <div className="film-card__bg">
           <img
-            src="img/bg-the-grand-budapest-hotel.jpg"
-            alt="The Grand Budapest Hotel"
+            src={promo?.backgroundImage}
+            alt={promo?.name}
           />
         </div>
 
@@ -41,21 +38,21 @@ export default function Main(props: MainProps) {
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt="The Grand Budapest Hotel poster"
+                src={promo?.posterImage}
+                alt={promo?.name}
                 width="218"
                 height="327"
               />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{props.previewMovieTitle}</h2>
+              <h2 className="film-card__title">{promo?.name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">
-                  {props.previewMovieGenre}
+                  {promo?.genre}
                 </span>
                 <span className="film-card__year">
-                  {props.previewMovieCreatedDate}
+                  {promo?.released}
                 </span>
               </p>
 
@@ -91,62 +88,7 @@ export default function Main(props: MainProps) {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-
           <GenreFilter />
-
-          {/* <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="/" className="catalog__genres-link">
-                All genres
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/" className="catalog__genres-link">
-                Comedies
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/" className="catalog__genres-link">
-                Crime
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/" className="catalog__genres-link">
-                Documentary
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/" className="catalog__genres-link">
-                Dramas
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/" className="catalog__genres-link">
-                Horror
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/" className="catalog__genres-link">
-                Kids & Family
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/" className="catalog__genres-link">
-                Romance
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/" className="catalog__genres-link">
-                Sci-Fi
-              </a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="/" className="catalog__genres-link">
-                Thrillers
-              </a>
-            </li>
-          </ul> */}
-
           <FilmList/>
         </section>
 

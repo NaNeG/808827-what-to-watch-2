@@ -3,32 +3,34 @@ import { Link, useParams } from 'react-router-dom';
 import SimilarFilms from '../../components/similar-films/similar-films';
 import Tabs from '../../components/tabs/tabs';
 import UserBlock from '../../components/user-block/user-block';
+import { ReducerType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
-  fetchReviewsByID,
+  fetchCommentsByID,
   fetchFilmByID,
   fetchSimilarByID,
   setDataIsLoading,
 } from '../../store/action';
+import { mainReducer } from '../../store/main-reducer';
 import AuthStatus from '../../types/auth-status.enum';
 import { NotFound } from '../not-found/not-found';
 
 export default function Film() {
   const id = Number(useParams().id);
 
-  const film = useAppSelector((state) => state.film);
-  const reviews = useAppSelector((state) => state.comments);
-  const similar = useAppSelector((state) => state.similar);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const film = useAppSelector((state) => state[ReducerType.Film].film);
+  const reviews = useAppSelector((state) => state[ReducerType.Film].comments);
+  const similar = useAppSelector((state) => state[ReducerType.Film].similar);
+  const authStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setDataIsLoading(true));
+    // dispatch(setDataIsLoading(true));
     dispatch(fetchFilmByID(id.toString()));
     dispatch(fetchSimilarByID(id.toString()));
-    dispatch(fetchReviewsByID(id.toString()));
-    dispatch(setDataIsLoading(false));
+    dispatch(fetchCommentsByID(id.toString()));
+    // dispatch(setDataIsLoading(false));
   }, [id, dispatch]);
 
   if (!film) {

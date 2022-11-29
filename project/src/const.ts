@@ -7,5 +7,12 @@ export enum APIRoute {
   Logout = '/logout',
   Comments = '/comments',
   Similar = '/similar',
+  Promo = '/promo',
+}
+
+export enum ReducerType {
+  User = 'userReducer',
+  Main = 'mainReducer',
+  Film = 'filmReducer'
 }
 

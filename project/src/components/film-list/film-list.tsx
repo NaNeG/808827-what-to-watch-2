@@ -1,16 +1,12 @@
 import { Fragment, useState } from 'react';
+import { ReducerType } from '../../const';
 import { useAppSelector } from '../../hooks';
 import FilmCard from '../film-card/film-card';
 import ShowMoreButton from '../show-more-button/show-more-button';
 
 export default function FilmList() {
-  const [highlightedFilm, setHighlightedFilm] = useState(NaN);
-  const filteredFilms = useAppSelector((state) => state.filteredFilms);
-  const shownCount = useAppSelector((state) => state.shownCount);
-
-  const mouseHoverHandler = (id: number) => {
-    setHighlightedFilm(id);
-  };
+  const filteredFilms = useAppSelector((state) => state[ReducerType.Main].filteredFilms);
+  const shownCount = useAppSelector((state) => state[ReducerType.Main].shownCount);
 
   return (
     <Fragment>
@@ -22,9 +18,7 @@ export default function FilmList() {
             posterSrc={film.posterImage}
             posterAlt={film.name}
             name={film.name}
-            isHighlighted={highlightedFilm === film.id}
             videoLink={film.videoLink}
-            onFilmCardHover={mouseHoverHandler}
           />
         ))}
       </div>

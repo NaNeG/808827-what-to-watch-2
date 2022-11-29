@@ -1,13 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ReducerType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/action';
 import AuthStatus from '../../types/auth-status.enum';
 
 export default function UserBlock() {
   const dispatch = useAppDispatch();
-  const avatar = useAppSelector((state) => state.avatar);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const navigate = useNavigate();
+  const avatar = useAppSelector((state) => state[ReducerType.User].avatar);
+  const authStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
 
   if (authStatus !== AuthStatus.Authorized) {
     return (
@@ -25,7 +27,7 @@ export default function UserBlock() {
     <ul className="user-block">
       <li className="user-block__item">
         <div className="user-block__avatar">
-          <img src={avatar || ''} alt="User avatar" width="63" height="63" />
+          <img src={avatar || ''} alt="User avatar" width="63" height="63" onClick={() => navigate('/mylist')}/>
         </div>
       </li>
       <li className="user-block__item">

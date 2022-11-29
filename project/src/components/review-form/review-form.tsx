@@ -9,19 +9,31 @@ export default function ReviewForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [starRating, setStarRating] = useState('10');
+  const [starRating, setStarRating] = useState(NaN);
   const [reviewContent, setReviewContent] = useState('');
+  const [isSubmitDisabledByText, setIsSubmitDisabledByText] = useState(true);
+  const [isSubmitDisabledByRating, setIsSubmitDisabledByRating] = useState(true);
 
   const reviewTextChangeHandler = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setReviewContent(evt.target.value);
+    if (evt.target.value.length >= 50 && evt.target.value.length <= 400) {
+      setIsSubmitDisabledByText(false);
+    } else {
+      setIsSubmitDisabledByText(true);
+    }
   };
   const starRatingChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
-    setStarRating(evt.target.value);
+    setStarRating(parseInt(evt.target.value, 10));
+    if (evt.target.value) {
+      setIsSubmitDisabledByRating(false);
+    } else {
+      setIsSubmitDisabledByRating(true);
+    }
   };
 
   const reviewSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(postComment({filmId: id, rating: parseInt(starRating, 10), comment: reviewContent}));
+    dispatch(postComment({filmId: id, rating: starRating, comment: reviewContent})); // todo: navigate async
     navigate(`/films/${id}`);
   };
 
@@ -57,7 +69,7 @@ export default function ReviewForm() {
         >
         </textarea>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">
+          <button className="add-review__btn" type="submit" disabled={isSubmitDisabledByText || isSubmitDisabledByRating}>
             Post
           </button>
         </div>

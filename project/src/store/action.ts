@@ -1,16 +1,14 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, AppState, State } from '../types/app-state.type';
+import { AppDispatch, State } from '../types/app-state.type';
 import { FilmType } from '../types/film.type';
 import { AxiosInstance } from 'axios';
 import { APIRoute, TIMEOUT_SHOW_ERROR } from '../const';
 import { AuthData } from '../types/auth-data.type';
-import { dropToken, saveToken } from '../services/token';
 import { UserData } from '../types/user-data.type';
 import AuthStatus from '../types/auth-status.enum';
 import { Comment } from '../types/comment.type';
 import { ReviewType } from '../types/review.type';
 import { UserComment } from '../types/user-comment.type';
-import {store} from './index'
 
 export const changeGenre = createAction<{ currentGenre: string }>(
   'changeGenre'
@@ -74,7 +72,6 @@ export const logout = createAsyncThunk<
 >('logout', async (_arg, { dispatch, extra: api }) => {
   await api.delete(APIRoute.Logout);
 });
-
 
 
 export const fetchFilmByID = createAsyncThunk<

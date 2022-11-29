@@ -1,20 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DEFAULT_GENRE, TIMEOUT_SHOW_ERROR } from '../const';
+import { DEFAULT_GENRE } from '../const';
 import getFilmsByGenre from '../helpers/get-films-by-genre';
 import { AppState } from '../types/app-state.type';
-import AuthStatus from '../types/auth-status.enum';
 import {
-  changeGenre,
-  clearError,
-  fetchFilmByID,
-  fetchFilms,
-  fetchPromoFilm,
-  fillFilms,
-  loadPromo,
-  resetShownFilms,
-  setDataIsLoading,
-  setError,
-  showMoreFilms,
+  changeGenre, fetchFilms,
+  fetchPromoFilm, resetShownFilms, setError,
+  showMoreFilms
 } from './action';
 
 const initialState: AppState = {

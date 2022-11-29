@@ -31,7 +31,8 @@ function App(): JSX.Element {
               <MyList />
             </PrivateRoute>
           }
-        ></Route>
+        >
+        </Route>
         <Route path="/films/:id">
           <Route index element={<Film />}></Route>
           <Route path="review" element={<AddReview></AddReview>}></Route>
@@ -40,7 +41,8 @@ function App(): JSX.Element {
         <Route
           path="/player/:id"
           element={<VideoPlayer mockFilms={films}></VideoPlayer>}
-        ></Route>
+        >
+        </Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
     </BrowserRouter>

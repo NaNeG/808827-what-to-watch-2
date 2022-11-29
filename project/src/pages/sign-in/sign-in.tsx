@@ -15,7 +15,7 @@ export default function SignIn() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const authStatus = useAppSelector(state => state[ReducerType.User].authorizationStatus);
+  const authStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
 
   const onSubmit = (authData: AuthData) => {
     dispatch(login(authData));

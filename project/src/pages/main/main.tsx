@@ -7,7 +7,7 @@ import { ReducerType } from '../../const';
 import { useAppSelector } from '../../hooks';
 
 export default function Main() {
-  const promo = useAppSelector(state => state[ReducerType.Main].promo);
+  const promo = useAppSelector((state) => state[ReducerType.Main].promo);
   return (
     <Fragment>
       <section className="film-card">

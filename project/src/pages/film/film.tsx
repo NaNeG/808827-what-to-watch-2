@@ -8,10 +8,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   fetchCommentsByID,
   fetchFilmByID,
-  fetchSimilarByID,
-  setDataIsLoading,
+  fetchSimilarByID
 } from '../../store/action';
-import { mainReducer } from '../../store/main-reducer';
 import AuthStatus from '../../types/auth-status.enum';
 import { NotFound } from '../not-found/not-found';
 

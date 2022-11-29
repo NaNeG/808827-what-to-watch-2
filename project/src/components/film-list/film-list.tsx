@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { ReducerType } from '../../const';
 import { useAppSelector } from '../../hooks';
 import FilmCard from '../film-card/film-card';

@@ -4,8 +4,7 @@ import ReviewForm from '../../components/review-form/review-form';
 import UserBlock from '../../components/user-block/user-block';
 import { ReducerType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchFilmByID, setDataIsLoading } from '../../store/action';
-import { mainReducer } from '../../store/main-reducer';
+import { fetchFilmByID } from '../../store/action';
 import AuthStatus from '../../types/auth-status.enum';
 
 export default function AddReview() {

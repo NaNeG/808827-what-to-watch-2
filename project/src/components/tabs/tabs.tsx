@@ -29,14 +29,14 @@ export default function Tabs(props: TabsProps) {
               'film-nav__item--active'
             }`}
           >
-            <button
+            <a
               className="film-nav__link"
               onClick={(event) => {
                 setSelectedTab(DescriptionTabs.Overview);
               }}
             >
               Overview
-            </button>
+            </a>
           </li>
           <li
             className={`film-nav__item ${
@@ -44,14 +44,14 @@ export default function Tabs(props: TabsProps) {
               'film-nav__item--active'
             }`}
           >
-            <button
+            <a
               className="film-nav__link"
               onClick={(event) => {
                 setSelectedTab(DescriptionTabs.Details);
               }}
             >
               Details
-            </button>
+            </a>
           </li>
           <li
             className={`film-nav__item ${
@@ -59,14 +59,14 @@ export default function Tabs(props: TabsProps) {
               'film-nav__item--active'
             }`}
           >
-            <button
+            <a
               className="film-nav__link"
               onClick={(event) => {
                 setSelectedTab(DescriptionTabs.Reviews);
               }}
             >
               Reviews
-            </button>
+            </a>
           </li>
         </ul>
       </nav>

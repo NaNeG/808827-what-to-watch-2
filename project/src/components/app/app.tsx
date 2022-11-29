@@ -50,7 +50,7 @@ function App(props: AppProps): JSX.Element {
         >
         </Route>
         <Route path="/films/:id">
-          <Route index element={<Film film={films[0]} reviews={props.reviews}></Film>}></Route>
+          <Route index element={<Film/>}></Route>
           <Route path="review" element={<AddReview mockFilm={films[0]}></AddReview>}></Route>
         </Route>
 

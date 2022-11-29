@@ -3,7 +3,7 @@ import { DEFAULT_GENRE } from '../const';
 import getFilmsByGenre from '../helpers/get-films-by-genre';
 import { AppState } from '../types/app-state.type';
 import AuthStatus from '../types/auth-status.enum';
-import { changeGenre, fillFilms, setAuthStatus, resetShownFilms, setDataIsLoading, showMoreFilms, setError } from './action';
+import { changeGenre, fillFilms, setAuthStatus, resetShownFilms, setDataIsLoading, showMoreFilms, setError, setAvatar, loadFilm, loadComments, loadSimilar } from './action';
 
 const initialState: AppState = {
   films: [],
@@ -13,6 +13,10 @@ const initialState: AppState = {
   dataIsLoading: false,
   authorizationStatus: AuthStatus.NoAuth,
   error: null,
+  avatar: null,
+  comments: [],
+  similar: [],
+  film: null
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -40,6 +44,18 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(setAvatar, (state, action) => {
+      state.avatar = action.payload;
+    })
+    .addCase(loadFilm, (state, action) => {
+      state.film = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(loadSimilar, (state, action) => {
+      state.similar = action.payload;
     });
 });
 

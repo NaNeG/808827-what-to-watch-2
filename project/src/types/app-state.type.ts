@@ -5,16 +5,25 @@ import { ReviewType } from './review.type';
 
 export type AppState = {
   films: FilmType[],
-  filteredFilms: FilmType[],
-  currentGenre: string,
-  shownCount: number,
   dataIsLoading: boolean,
-  authorizationStatus: AuthStatus,
   error: string | null,
-  avatar: string | null,
+  promo: FilmType | null,
+  currentGenre: string,
+  filteredFilms: FilmType[],
+  shownCount: number,
+}
+
+export type FilmState = {
   film: FilmType | null,
   comments: ReviewType[],
   similar: FilmType[],
 }
+
+export type UserState = {
+  authorizationStatus: AuthStatus,
+  avatar: string | null
+}
+
+export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

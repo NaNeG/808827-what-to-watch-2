@@ -1,36 +1,37 @@
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import ReviewForm from '../../components/review-form/review-form';
 import UserBlock from '../../components/user-block/user-block';
+import { ReducerType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchFilmByID, setDataIsLoading } from '../../store/action';
-import { FilmType } from '../../types/film.type';
+import { fetchFilmByID } from '../../store/action';
+import AuthStatus from '../../types/auth-status.enum';
 
-type AddReviewProps = {
-  mockFilm: FilmType;
-}
-
-export default function AddReview(props: AddReviewProps) {
+export default function AddReview() {
   const id = Number(useParams().id);
 
-  const film = useAppSelector((state) => state.film);
+  const film = useAppSelector((state) => state[ReducerType.Film].film);
+  const authStatus = useAppSelector(
+    (state) => state.userReducer.authorizationStatus
+  );
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setDataIsLoading(true));
+    // dispatch(setDataIsLoading(true));
     dispatch(fetchFilmByID(id.toString()));
-    dispatch(setDataIsLoading(false));
+    // dispatch(setDataIsLoading(false));
   }, [id, dispatch]);
+
+  if (authStatus === AuthStatus.NoAuth) {
+    return <Navigate to={'/'} />;
+  }
 
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img
-            src={props.mockFilm.backgroundImage}
-            alt={props.mockFilm.name}
-          />
+          <img src={film?.backgroundImage} alt={film?.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -52,18 +53,20 @@ export default function AddReview(props: AddReviewProps) {
                 </Link>
               </li>
               <li className="breadcrumbs__item">
-                <Link to={`/films/${id}/review`} className="breadcrumbs__link">Add review</Link>
+                <Link to={`/films/${id}/review`} className="breadcrumbs__link">
+                  Add review
+                </Link>
               </li>
             </ul>
           </nav>
 
-          <UserBlock/>
+          <UserBlock />
         </header>
 
         <div className="film-card__poster film-card__poster--small">
           <img
             src={film?.posterImage}
-            alt={`${film?.name } poster`}
+            alt={`${film?.name} poster`}
             width="218"
             height="327"
           />
@@ -71,7 +74,7 @@ export default function AddReview(props: AddReviewProps) {
       </div>
 
       <div className="add-review">
-        <ReviewForm/>
+        <ReviewForm />
       </div>
     </section>
   );

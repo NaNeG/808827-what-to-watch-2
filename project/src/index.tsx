@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
 import ErrorMessage from './components/error-message/error-message';
-import reviews from './mocks/reviews';
 import { store } from './store';
-import { checkAuth, fetchFilms } from './store/action';
+import { checkAuth, fetchFilms, fetchPromoFilm } from './store/action';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,12 +12,13 @@ const root = ReactDOM.createRoot(
 
 store.dispatch(checkAuth());
 store.dispatch(fetchFilms());
+store.dispatch(fetchPromoFilm());
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ErrorMessage/>
-      <App reviews={reviews} />
+      <App />
     </Provider>
   </React.StrictMode>
 );

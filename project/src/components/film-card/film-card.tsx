@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Videoplayer from '../videoplayer/videoplayer';
 
@@ -6,20 +7,19 @@ type FilmCardProps = {
   posterSrc: string;
   posterAlt?: string;
   name: string;
-  isHighlighted: boolean;
   videoLink: string;
-  onFilmCardHover: (id: number) => void;
 };
 
 export default function FilmCard(props: FilmCardProps) {
+  const [isHighlighted, setIsHighlighted] = useState(false);
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseEnter={() => props.onFilmCardHover(props.id)}
-      onMouseLeave={() => props.onFilmCardHover(NaN)}
+      onMouseEnter={() => setIsHighlighted(true)}
+      onMouseLeave={() => setIsHighlighted(false)}
     >
       <div className="small-film-card__image">
-        {props.isHighlighted ? (
+        {isHighlighted ? (
           <Videoplayer poster={props.posterSrc} videoLink={props.videoLink}/>
         ) : (
           <img

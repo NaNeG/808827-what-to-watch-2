@@ -1,11 +1,12 @@
 import React, { MouseEvent } from 'react';
+import { ReducerType } from '../../const';
 import { getGenres } from '../../helpers/get-genres';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeGenre, resetShownFilms } from '../../store/action';
 
 export default function GenreFilter() {
-  const currentGenre = useAppSelector((state) => state.currentGenre);
-  const films = useAppSelector((state) => state.films);
+  const currentGenre = useAppSelector((state) => state[ReducerType.Main].currentGenre);
+  const films = useAppSelector((state) => state[ReducerType.Main].films);
   const genres = getGenres(films);
   const dispatch = useAppDispatch();
 

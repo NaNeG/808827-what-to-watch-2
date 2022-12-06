@@ -1,10 +1,9 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch, AppState } from '../types/app-state.type';
+import { AppDispatch, State } from '../types/app-state.type';
 import { FilmType } from '../types/film.type';
 import { AxiosInstance } from 'axios';
 import { APIRoute, TIMEOUT_SHOW_ERROR } from '../const';
 import { AuthData } from '../types/auth-data.type';
-import { dropToken, saveToken } from '../services/token';
 import { UserData } from '../types/user-data.type';
 import AuthStatus from '../types/auth-status.enum';
 import { Comment } from '../types/comment.type';
@@ -24,126 +23,122 @@ export const setAvatar = createAction<string | null>('setAvatar');
 export const loadFilm = createAction<FilmType>('loadFilm');
 export const loadComments = createAction<Comment[]>('loadComments');
 export const loadSimilar = createAction<FilmType[]>('loadSimilar');
-
-export const fetchFilms = createAsyncThunk<
-  void,
-  undefined,
-  { dispatch: AppDispatch; state: AppState; extra: AxiosInstance }
->('fetchFilms', async (_arg, { dispatch, extra: api }) => {
-  dispatch(setDataIsLoading(true));
-  const { data } = await api.get<FilmType[]>(APIRoute.Films);
-  dispatch(fillFilms(data));
-  dispatch(setDataIsLoading(false));
-});
-
-export const checkAuth = createAsyncThunk<
-  void,
-  undefined,
-  { dispatch: AppDispatch; state: AppState; extra: AxiosInstance }
->('checkAuth', async (_arg, { dispatch, extra: api }) => {
-  try {
-    const {data} = await api.get(APIRoute.Login);
-    dispatch(setAuthStatus(AuthStatus.Authorized));
-    dispatch(setAvatar(data.avatarUrl));
-  } catch {
-    dispatch(setAuthStatus(AuthStatus.NoAuth));
-  }
-});
-
-export const login = createAsyncThunk<
-  void,
-  AuthData,
-  { dispatch: AppDispatch; state: AppState; extra: AxiosInstance }
->('login', async ({ email, password }, { dispatch, extra: api }) => {
-  const { data } = await api.post<UserData>(APIRoute.Login, {
-    email,
-    password,
-  });
-  saveToken(data.token);
-  dispatch(setAvatar(data.avatarUrl));
-  dispatch(setAuthStatus(AuthStatus.Authorized));
-});
-
-export const logout = createAsyncThunk<
-  void,
-  undefined,
-  { dispatch: AppDispatch; state: AppState; extra: AxiosInstance }
->('login', async (_arg, { dispatch, extra: api }) => {
-  await api.delete(APIRoute.Logout);
-  dropToken();
-  dispatch(setAvatar(null));
-  dispatch(setAuthStatus(AuthStatus.NoAuth));
-});
+export const loadPromo = createAction<FilmType>('loadPromo');
 
 export const clearError = createAsyncThunk<
   void,
   undefined,
-  { dispatch: AppDispatch; state: AppState; extra: AxiosInstance }
->('clearError', async (_arg, { dispatch }) => {
+  { state: State; dipatch: AppDispatch; extra: AxiosInstance }
+>('clearError', async (_arg, {dispatch}) => {
   setTimeout(() => {
     dispatch(setError(null));
   }, TIMEOUT_SHOW_ERROR);
 });
 
-export const fetchFilmByID = createAsyncThunk<
-  void,
-  string,
-  {
-    dispatch: AppDispatch;
-    state: AppState;
-    extra: AxiosInstance;
-  }
->('fetchFilmById', async (filmId: string, { dispatch, extra: api }) => {
-  const { data } = await api.get<FilmType>(`${APIRoute.Films}/${filmId}`);
-  dispatch(loadFilm(data));
+export const fetchFilms = createAsyncThunk<
+  FilmType[],
+  undefined,
+  { state: State; extra: AxiosInstance }
+>('fetchFilms', async (_arg, { extra: api }) => {
+  const { data } = await api.get<FilmType[]>(APIRoute.Films);
+  return data;
 });
 
-export const fetchReviewsByID = createAsyncThunk<
+export const checkAuth = createAsyncThunk<
+  UserData,
+  undefined,
+  { dispatch: AppDispatch; state: State; extra: AxiosInstance }
+>('checkAuth', async (_arg, { dispatch, extra: api }) => {
+  const { data } = await api.get(APIRoute.Login);
+  return data;
+});
+
+export const login = createAsyncThunk<
+  UserData,
+  AuthData,
+  { state: State; extra: AxiosInstance }
+>('login', async ({ email, password }, { extra: api }) => {
+  const { data } = await api.post<UserData>(APIRoute.Login, {
+    email,
+    password,
+  });
+  return data;
+});
+
+export const logout = createAsyncThunk<
   void,
+  undefined,
+  { state: State; extra: AxiosInstance }
+>('logout', async (_arg, { dispatch, extra: api }) => {
+  await api.delete(APIRoute.Logout);
+});
+
+
+export const fetchFilmByID = createAsyncThunk<
+  FilmType,
   string,
   {
-    dispatch: AppDispatch;
-    state: AppState;
+    state: State;
     extra: AxiosInstance;
   }
->('fetchCommentsById', async (filmId: string, { dispatch, extra: api }) => {
+>('fetchFilmById', async (filmId: string, { extra: api }) => {
+  const { data } = await api.get<FilmType>(`${APIRoute.Films}/${filmId}`);
+  return data;
+});
+
+export const fetchCommentsByID = createAsyncThunk<
+  ReviewType[],
+  string,
+  {
+    state: State;
+    extra: AxiosInstance;
+  }
+>('fetchCommentsById', async (filmId: string, { extra: api }) => {
   const { data } = await api.get<ReviewType[]>(
     `${APIRoute.Comments}/${filmId}`
   );
-  dispatch(loadComments(data));
+  return data;
 });
 
 export const fetchSimilarByID = createAsyncThunk<
-  void,
+  FilmType[],
   string,
   {
-    dispatch: AppDispatch;
-    state: AppState;
+    state: State;
     extra: AxiosInstance;
   }
->('fetchSimilarById', async (filmId: string, { dispatch, extra: api }) => {
+>('fetchSimilarById', async (filmId: string, { extra: api }) => {
   const { data } = await api.get<FilmType[]>(
     `${APIRoute.Films}/${filmId}${APIRoute.Similar}`
   );
-  dispatch(loadSimilar(data));
+  return data;
 });
 
 export const postComment = createAsyncThunk<
   void,
   UserComment,
   {
-    dispatch: AppDispatch;
-    state: AppState;
+    state: State;
     extra: AxiosInstance;
   }
 >(
   'data/postCommentById',
-  async ({ comment, rating, filmId }, { dispatch, extra: api }) => {
-    dispatch(setDataIsLoading(true));
+  async ({ comment, rating, filmId }, { extra: api }) => {
     await api.post<UserComment>(`${APIRoute.Comments}/${filmId}`, {
       comment,
       rating,
     });
-    dispatch(setDataIsLoading(false));
   }
 );
+
+export const fetchPromoFilm = createAsyncThunk<
+  FilmType,
+  undefined,
+  {
+    state: State;
+    extra: AxiosInstance;
+  }
+>('fetchPromoFilm', async (_arg, { extra: api }) => {
+  const { data } = await api.get<FilmType>(APIRoute.Promo);
+  return data;
+});

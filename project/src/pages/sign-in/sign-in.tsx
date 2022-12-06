@@ -1,15 +1,21 @@
 import { FormEvent, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { ReducerType } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login } from '../../store/action';
 import { AuthData } from '../../types/auth-data.type';
+import AuthStatus from '../../types/auth-status.enum';
 
 export default function SignIn() {
   const [emailField, setEmailField] = useState<string>('');
   const [passwordField, setPasswordField] = useState<string>('');
+  const checkPassword = (password: string): boolean => (/(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{2,}/.test(password));
+  const checkEmail = (email: string): boolean => (/\S+@\S+\.\S+/.test(email));
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const authStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
 
   const onSubmit = (authData: AuthData) => {
     dispatch(login(authData));
@@ -18,7 +24,7 @@ export default function SignIn() {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (emailField !== null && passwordField !== null) {
+    if (emailField !== null && passwordField !== null && checkPassword(passwordField) && checkEmail(emailField)) {
       onSubmit({
         email: emailField,
         password: passwordField,
@@ -26,6 +32,10 @@ export default function SignIn() {
       navigate('/');
     }
   };
+
+  if (authStatus === AuthStatus.Authorized) {
+    return <Navigate to={'/'} />;
+  }
 
   return (
     <div className="user-page">

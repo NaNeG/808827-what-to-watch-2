@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DEFAULT_GENRE } from '../const';
+import { DEFAULT_GENRE, ReducerType } from '../const';
 import getFilmsByGenre from '../helpers/get-films-by-genre';
 import { AppState } from '../types/app-state.type';
 import {
-  changeGenre, fetchFilms,
+  changeGenre, changePromoFavoriteStatus, fetchFavoriteFilms, fetchFilms,
   fetchPromoFilm, resetShownFilms, setError,
+  setFavoriteCount,
   showMoreFilms
 } from './action';
 
@@ -16,10 +17,12 @@ const initialState: AppState = {
   dataIsLoading: false,
   error: null,
   promo: null,
+  favoriteFilms: [],
+  favoriteCount: 0,
 };
 
 export const mainReducer = createSlice({
-  name: 'mainReducer',
+  name: ReducerType.Main,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -50,8 +53,19 @@ export const mainReducer = createSlice({
         state.filteredFilms = state.films;
         state.dataIsLoading = false;
       })
+      .addCase(fetchFavoriteFilms.fulfilled, (state, action) => {
+        state.favoriteFilms = action.payload;
+        state.favoriteCount = state.favoriteFilms.length;
+        state.dataIsLoading = false;
+      })
       .addCase(fetchPromoFilm.fulfilled, (state, action) => {
         state.promo = action.payload;
+      })
+      .addCase(changePromoFavoriteStatus.fulfilled, (state, action) => {
+        state.promo = action.payload;
+      })
+      .addCase(setFavoriteCount, (state, action) => {
+        state.favoriteCount = action.payload;
       });
   },
 });

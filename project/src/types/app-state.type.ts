@@ -11,12 +11,15 @@ export type AppState = {
   currentGenre: string,
   filteredFilms: FilmType[],
   shownCount: number,
+  favoriteFilms: FilmType[],
+  favoriteCount: number,
 }
 
 export type FilmState = {
   film: FilmType | null,
   comments: ReviewType[],
   similar: FilmType[],
+  isFilmLoading: boolean,
 }
 
 export type UserState = {

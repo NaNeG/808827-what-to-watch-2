@@ -8,6 +8,7 @@ export enum APIRoute {
   Comments = '/comments',
   Similar = '/similar',
   Promo = '/promo',
+  Favorite = '/favorite',
 }
 
 export enum ReducerType {

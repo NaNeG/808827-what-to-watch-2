@@ -6,9 +6,12 @@ import UserBlock from '../../components/user-block/user-block';
 import { ReducerType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
+  changeFilmFavoriteStatus,
   fetchCommentsByID,
+  fetchFavoriteFilms,
   fetchFilmByID,
-  fetchSimilarByID
+  fetchSimilarByID,
+  setFavoriteCount
 } from '../../store/action';
 import AuthStatus from '../../types/auth-status.enum';
 import { NotFound } from '../not-found/not-found';
@@ -19,7 +22,12 @@ export default function Film() {
   const film = useAppSelector((state) => state[ReducerType.Film].film);
   const reviews = useAppSelector((state) => state[ReducerType.Film].comments);
   const similar = useAppSelector((state) => state[ReducerType.Film].similar);
-  const authStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
+  const authStatus = useAppSelector(
+    (state) => state[ReducerType.User].authorizationStatus
+  );
+  const favoriteCount = useAppSelector(
+    (state) => state.mainReducer.favoriteCount
+  );
 
   const dispatch = useAppDispatch();
 
@@ -28,8 +36,25 @@ export default function Film() {
     dispatch(fetchFilmByID(id.toString()));
     dispatch(fetchSimilarByID(id.toString()));
     dispatch(fetchCommentsByID(id.toString()));
+    if (authStatus === AuthStatus.Authorized) {
+      dispatch(fetchFavoriteFilms());
+    }
     // dispatch(setDataIsLoading(false));
-  }, [id, dispatch]);
+  }, [id, dispatch, authStatus]);
+
+  const favoriteAddHandler = () => {
+    dispatch(
+      changeFilmFavoriteStatus({
+        filmId: film?.id || NaN,
+        status: film?.isFavorite ? 0 : 1,
+      })
+    );
+    if (film?.isFavorite) {
+      dispatch(setFavoriteCount(favoriteCount - 1));
+    } else {
+      dispatch(setFavoriteCount(favoriteCount + 1));
+    }
+  };
 
   if (!film) {
     return <NotFound />;
@@ -74,17 +99,22 @@ export default function Film() {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <Link
-                  to={'/mylist'}
-                  className="btn btn--list film-card__button"
-                  type="button"
-                >
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </Link>
+                {authStatus === AuthStatus.Authorized && (
+                  <button
+                    className="btn btn--list film-card__button"
+                    onClick={favoriteAddHandler}
+                  >
+                    {film?.isFavorite ? (
+                      <span>✓</span>
+                    ) : (
+                      <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#add"></use>
+                      </svg>
+                    )}
+                    <span>My list</span>
+                    <span className="film-card__count">{favoriteCount}</span>
+                  </button>
+                )}
                 {authStatus === AuthStatus.Authorized && (
                   <Link
                     to={`/films/${film.id}/review`}

@@ -1,9 +1,24 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import FilmList from '../../components/film-list/film-list';
+import FilmCard from '../../components/film-card/film-card';
 import UserBlock from '../../components/user-block/user-block';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavoriteFilms } from '../../store/action';
+import AuthStatus from '../../types/auth-status.enum';
 
 
 export default function MyList() {
+  const favoriteFilms = useAppSelector((state) => state.mainReducer.favoriteFilms);
+  const authStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (authStatus === AuthStatus.Authorized) {
+      dispatch(fetchFavoriteFilms());
+    }
+  }, [authStatus, dispatch]);
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -24,7 +39,9 @@ export default function MyList() {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmList />
+        <div className="catalog__films-list">
+          {favoriteFilms.map((film) => <FilmCard key={film.id} id={film.id} name={film.name} posterSrc={film.previewImage} videoLink={film.videoLink}/>)}
+        </div>
       </section>
 
       <footer className="page-footer">

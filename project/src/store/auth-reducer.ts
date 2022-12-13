@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { ReducerType } from '../const';
 import { dropToken, saveToken } from '../services/token';
 import { UserState } from '../types/app-state.type';
 import AuthStatus from '../types/auth-status.enum';
@@ -10,7 +11,7 @@ const initialState: UserState = {
 };
 
 export const userReducer = createSlice({
-  name: 'userReducer',
+  name: ReducerType.User,
   initialState,
   reducers: {},
   extraReducers: (builder) => {

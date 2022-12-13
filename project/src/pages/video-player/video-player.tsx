@@ -30,7 +30,7 @@ export default function VideoPlayer() {
     } else {
       playerElement?.requestFullscreen();
     }
-  }
+  };
 
   useEffect(() => {
     if (isPlaying) {

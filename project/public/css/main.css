@@ -864,6 +864,8 @@ main {
 .film-nav__link {
   display: block;
   color: #EEE5B5;
+  background: transparent;
+  border: none;
   text-decoration: none;
   position: relative;
   padding-bottom: 19px; }

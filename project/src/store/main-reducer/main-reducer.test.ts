@@ -1,8 +1,8 @@
-import { AppState } from "../../types/app-state.type";
-import { DEFAULT_GENRE } from "../../const";
-import { films } from "../../mocks/films";
-import { changeGenre, fetchFavoriteFilms, fetchFilms, fetchPromoFilm } from "../action";
-import { mainReducer } from "./main-reducer";
+import { DEFAULT_GENRE } from '../../const';
+import { films } from '../../mocks/films';
+import { AppState } from '../../types/app-state.type';
+import { fetchFavoriteFilms, fetchFilms, fetchPromoFilm } from '../action';
+import { mainReducer } from './main-reducer';
 
 const mockFilm = films[0];
 const mockFilms = films;

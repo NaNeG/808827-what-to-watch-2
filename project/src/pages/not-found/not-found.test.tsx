@@ -5,7 +5,7 @@ describe('Component: NotFoundScreen', () => {
   it('should render correctly', () => {
 
     render(
-        <NotFound />
+      <NotFound />
     );
 
     expect(screen.getByText('404 Not Found')).toBeInTheDocument();

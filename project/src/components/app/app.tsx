@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { ReducerType } from '../../const';
 import { useAppSelector } from '../../hooks';
 import AddReview from '../../pages/add-review/add-review';
@@ -19,30 +19,30 @@ function App(): JSX.Element {
   }
 
   return (
-      <Routes>
-        <Route path="/" element={<Main />}></Route>
-        <Route path="/login" element={<SignIn></SignIn>}></Route>
-        <Route
-          path="/mylist"
-          element={
-            <PrivateRoute>
-              <MyList />
-            </PrivateRoute>
-          }
-        >
-        </Route>
-        <Route path="/films/:id">
-          <Route index element={<Film />}></Route>
-          <Route path="review" element={<AddReview></AddReview>}></Route>
-        </Route>
+    <Routes>
+      <Route path="/" element={<Main />}></Route>
+      <Route path="/login" element={<SignIn></SignIn>}></Route>
+      <Route
+        path="/mylist"
+        element={
+          <PrivateRoute>
+            <MyList />
+          </PrivateRoute>
+        }
+      >
+      </Route>
+      <Route path="/films/:id">
+        <Route index element={<Film />}></Route>
+        <Route path="review" element={<AddReview></AddReview>}></Route>
+      </Route>
 
-        <Route
-          path="/player/:id"
-          element={<VideoPlayer></VideoPlayer>}
-        >
-        </Route>
-        <Route path="*" element={<NotFound></NotFound>}></Route>
-      </Routes>
+      <Route
+        path="/player/:id"
+        element={<VideoPlayer></VideoPlayer>}
+      >
+      </Route>
+      <Route path="*" element={<NotFound></NotFound>}></Route>
+    </Routes>
   );
 }
 

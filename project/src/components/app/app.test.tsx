@@ -1,18 +1,16 @@
-import { render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
-import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import App from './app';
-import { films } from '../../mocks/films';
+import { Action, ThunkDispatch } from '@reduxjs/toolkit';
+import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
+import { DEFAULT_GENRE } from '../../const';
+import { films } from '../../mocks/films';
+import { createApi } from '../../services/api';
+import { State } from '../../types/app-state.type';
 import AuthStatus from '../../types/auth-status.enum';
 import ErrorMessage from '../error-message/error-message';
-import { DEFAULT_GENRE } from '../../const';
-import { MemoryRouter } from 'react-router-dom';
-import { Action, ThunkDispatch } from '@reduxjs/toolkit';
-import { State } from '../../types/app-state.type';
-import { createApi } from '../../services/api';
-import { logout } from '../../store/action';
+import App from './app';
 
 jest.mock('../../services/process-error-handle.ts');
 

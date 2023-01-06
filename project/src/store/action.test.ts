@@ -1,18 +1,16 @@
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { Action } from '@reduxjs/toolkit';
 import MockAdapter from 'axios-mock-adapter';
 import thunk, { ThunkDispatch } from 'redux-thunk';
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import { changeFilmFavoriteStatus, checkAuth, fetchCommentsByID, fetchFavoriteFilms, fetchFilmByID, fetchFilms, fetchPromoFilm, fetchSimilarByID, login, logout, postComment } from './action';
-import { createApi } from '../services/api';
 import { films } from '../mocks/films';
 import reviews from '../mocks/reviews';
+import { createApi } from '../services/api';
 import { State } from '../types/app-state.type';
-import { useDispatch } from 'react-redux';
 import { AuthData } from '../types/auth-data.type';
-import { Action } from '@reduxjs/toolkit';
-import { ReviewType } from '../types/review.type';
 import { UserComment } from '../types/user-comment.type';
+import { changeFilmFavoriteStatus, checkAuth, fetchCommentsByID, fetchFavoriteFilms, fetchFilmByID, fetchFilms, fetchPromoFilm, fetchSimilarByID, login, logout, postComment } from './action';
 
-jest.mock('../services/process-error-handle.ts')
+jest.mock('../services/process-error-handle.ts');
 
 describe('async actions', () => {
   const api = createApi();

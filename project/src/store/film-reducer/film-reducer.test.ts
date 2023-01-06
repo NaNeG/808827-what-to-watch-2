@@ -1,8 +1,8 @@
-import { FilmState } from "../../types/app-state.type";
-import { films } from "../../mocks/films";
-import { filmReducer } from "./film-reducer";
-import { fetchCommentsByID, fetchFilmByID, fetchSimilarByID } from "../action";
-import reviews from "../../mocks/reviews";
+import { FilmState } from '../../types/app-state.type';
+import { films } from '../../mocks/films';
+import { filmReducer } from './film-reducer';
+import { fetchCommentsByID, fetchFilmByID, fetchSimilarByID } from '../action';
+import reviews from '../../mocks/reviews';
 
 const mockFilm = films[0];
 const mockFilms = films;

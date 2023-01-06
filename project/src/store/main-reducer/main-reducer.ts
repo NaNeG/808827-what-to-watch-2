@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DEFAULT_GENRE, ReducerType } from '../const';
-import getFilmsByGenre from '../helpers/get-films-by-genre';
-import { AppState } from '../types/app-state.type';
+import { DEFAULT_GENRE, ReducerType } from '../../const';
+import getFilmsByGenre from '../../helpers/get-films-by-genre';
+import { AppState } from '../../types/app-state.type';
 import {
   changeGenre, changePromoFavoriteStatus, fetchFavoriteFilms, fetchFilms,
   fetchPromoFilm, resetShownFilms, setError,
   setFavoriteCount,
   showMoreFilms
-} from './action';
+} from '../action';
 
 const initialState: AppState = {
   films: [],

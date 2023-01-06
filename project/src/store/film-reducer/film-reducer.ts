@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ReducerType } from '../const';
-import { FilmState } from '../types/app-state.type';
+import { ReducerType } from '../../const';
+import { FilmState } from '../../types/app-state.type';
 import {
   changeFilmFavoriteStatus,
   fetchCommentsByID,
   fetchFilmByID,
   fetchSimilarByID,
-} from './action';
+} from '../action';
 
 const initialState: FilmState = {
   film: null,

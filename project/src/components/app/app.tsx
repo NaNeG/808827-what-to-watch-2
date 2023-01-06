@@ -19,7 +19,6 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/login" element={<SignIn></SignIn>}></Route>
@@ -44,7 +43,6 @@ function App(): JSX.Element {
         </Route>
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
-    </BrowserRouter>
   );
 }
 

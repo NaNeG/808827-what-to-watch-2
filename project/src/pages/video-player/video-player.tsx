@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import LoadingScreen from '../loading-screen/loading-screen';
 
+dayjs.extend(duration);
 
 export default function VideoPlayer() {
   const filmId = Number(useParams().id);
@@ -13,9 +14,8 @@ export default function VideoPlayer() {
   const isFilmLoadingStatus = useAppSelector((state) => state.filmReducer.isFilmLoading);
 
   const playerRef = useRef<HTMLVideoElement | null>(null);
-  const playerElement = document.querySelector('.player');
+  const playerDivRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useAppDispatch();
-  dayjs.extend(duration);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [timeLeft, setTimeLeft] = useState(film ? film?.runTime * 60 : 0);
@@ -28,7 +28,7 @@ export default function VideoPlayer() {
     if (document.fullscreenElement) {
       document.exitFullscreen();
     } else {
-      playerElement?.requestFullscreen();
+      playerDivRef.current?.requestFullscreen();
     }
   };
 
@@ -64,7 +64,7 @@ export default function VideoPlayer() {
   }
 
   return (
-    <div className="player">
+    <div className="player" ref={playerDivRef}>
       <video
         src={film?.videoLink}
         className="player__video"

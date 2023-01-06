@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import App from './components/app/app';
 import ErrorMessage from './components/error-message/error-message';
 import { store } from './store';
@@ -17,8 +18,10 @@ store.dispatch(fetchPromoFilm());
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ErrorMessage/>
-      <App />
+      <BrowserRouter>
+        <ErrorMessage />
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );

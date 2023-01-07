@@ -13,7 +13,6 @@ import ErrorMessage from '../error-message/error-message';
 import App from './app';
 
 jest.mock('../../services/process-error-handle.ts');
-
 const api = createApi();
 const middlewares = [thunk.withExtraArgument(api)];
 const mockStore = configureMockStore<
@@ -23,7 +22,7 @@ const mockStore = configureMockStore<
 >(middlewares);
 const mockFilm = films[0];
 
-describe('Routing when logged in', () => {
+describe('routing when logged in', () => {
   const store = mockStore({
     userReducer: {
       authorizationStatus: AuthStatus.Authorized,
@@ -121,7 +120,7 @@ describe('Routing when logged in', () => {
   });
 });
 
-describe('Routing when not logged in', () => {
+describe('routing when not logged in', () => {
   const store = mockStore({
     userReducer: {
       authorizationStatus: AuthStatus.NoAuth,

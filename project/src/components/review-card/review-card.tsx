@@ -12,7 +12,7 @@ type ReviewCardProps = {
 
 export default function ReviewCard(props: ReviewCardProps) {
   return (
-    <div className="review">
+    <div className="review" data-testid='review-card'>
       <blockquote className="review__quote">
         <p className="review__text">
           {props.reviewText}

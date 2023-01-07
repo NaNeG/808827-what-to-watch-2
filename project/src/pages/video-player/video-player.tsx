@@ -102,6 +102,7 @@ export default function VideoPlayer() {
           <button
             type="button"
             className="player__play"
+            data-testid='player-play'
             onClick={clickPlayButtonHandler}
           >
             {isPlaying ? (

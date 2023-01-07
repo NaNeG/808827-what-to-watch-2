@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { NotFound } from './not-found';
 
-describe('Component: NotFoundScreen', () => {
+describe('not-found tests', () => {
   it('should render correctly', () => {
 
     render(

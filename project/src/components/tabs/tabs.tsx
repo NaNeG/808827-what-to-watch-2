@@ -31,6 +31,7 @@ export default function Tabs(props: TabsProps) {
           >
             <button
               className="film-nav__link"
+              data-testid='overview'
               onClick={() => {
                 setSelectedTab(DescriptionTabs.Overview);
               }}
@@ -46,6 +47,7 @@ export default function Tabs(props: TabsProps) {
           >
             <button
               className="film-nav__link"
+              data-testid='details'
               onClick={() => {
                 setSelectedTab(DescriptionTabs.Details);
               }}
@@ -61,6 +63,7 @@ export default function Tabs(props: TabsProps) {
           >
             <button
               className="film-nav__link"
+              data-testid='reviews'
               onClick={() => {
                 setSelectedTab(DescriptionTabs.Reviews);
               }}

@@ -17,6 +17,7 @@ export default function FilmCard(props: FilmCardProps) {
       className="small-film-card catalog__films-card"
       onMouseEnter={() => setIsHighlighted(true)}
       onMouseLeave={() => setIsHighlighted(false)}
+      data-testid='film-card'
     >
       <div className="small-film-card__image">
         {isHighlighted ? (
@@ -31,7 +32,7 @@ export default function FilmCard(props: FilmCardProps) {
         )}
       </div>
       <h3 className="small-film-card__title">
-        <Link to={`/films/${props.id}`} className="small-film-card__link">
+        <Link to={`/films/${props.id}`} className="small-film-card__link" data-testid='film-link'>
           {props.name}
         </Link>
       </h3>

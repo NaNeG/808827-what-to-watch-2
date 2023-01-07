@@ -33,7 +33,7 @@ export default function ReviewForm() {
 
   const reviewSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(postComment({filmId: id, rating: starRating, comment: reviewContent})); // todo: navigate async
+    dispatch(postComment({filmId: id, rating: starRating, comment: reviewContent}));
     navigate(`/films/${id}`);
   };
 
@@ -69,7 +69,7 @@ export default function ReviewForm() {
         >
         </textarea>
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit" disabled={isSubmitDisabledByText || isSubmitDisabledByRating}>
+          <button className="add-review__btn" data-testid='submit-button' type="submit" disabled={isSubmitDisabledByText || isSubmitDisabledByRating}>
             Post
           </button>
         </div>

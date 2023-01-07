@@ -15,7 +15,7 @@ export default function UserBlock() {
     return (
       <ul className="user-block">
         <li className="user-block__item">
-          <Link className="user-block__link" to={'/login'}>
+          <Link className="user-block__link" to={'/login'} data-testid='login-link'>
             Login
           </Link>
         </li>
@@ -27,7 +27,7 @@ export default function UserBlock() {
     <ul className="user-block">
       <li className="user-block__item">
         <div className="user-block__avatar">
-          <img src={avatar || ''} alt="User avatar" width="63" height="63" onClick={() => navigate('/mylist')}/>
+          <img src={avatar || ''} alt="User avatar" width="63" height="63" onClick={() => navigate('/mylist')} data-testid='avatar'/>
         </div>
       </li>
       <li className="user-block__item">

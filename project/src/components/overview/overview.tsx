@@ -7,7 +7,6 @@ type OverviewProps = {
   description: string,
   director: string,
   starring: string[]
-
 }
 
 export default function Overview(props: OverviewProps) {

@@ -35,9 +35,6 @@ export default function GenreFilter() {
           >
             {genre}
           </a>
-          {/* <button className="catalog__genres-link">
-            {genre}
-          </button> */}
         </li>
       ))}
     </ul>

@@ -32,14 +32,12 @@ export default function Film() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // dispatch(setDataIsLoading(true));
     dispatch(fetchFilmByID(id.toString()));
     dispatch(fetchSimilarByID(id.toString()));
     dispatch(fetchCommentsByID(id.toString()));
     if (authStatus === AuthStatus.Authorized) {
       dispatch(fetchFavoriteFilms());
     }
-    // dispatch(setDataIsLoading(false));
   }, [id, dispatch, authStatus]);
 
   const favoriteAddHandler = () => {

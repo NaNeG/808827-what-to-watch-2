@@ -18,9 +18,7 @@ export default function AddReview() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // dispatch(setDataIsLoading(true));
     dispatch(fetchFilmByID(id.toString()));
-    // dispatch(setDataIsLoading(false));
   }, [id, dispatch]);
 
   if (authStatus === AuthStatus.NoAuth) {
